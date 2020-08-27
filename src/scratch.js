@@ -13,7 +13,7 @@ const winnerForY1 = [
   [y, null, y],
   [y, null, x],
 ];
-const winnerForY2 = [
+const diagWinnerY = [
   [null, x, y],
   [y, y, x],
   [y, null, x],
@@ -41,8 +41,8 @@ function checkWinner(board) {
     const row = board[i];
     if (rowChecker(row)) return true;
   }
-  // some col winner
-  // - for each col, check if winner
+  //   // some col winner
+  //   // - for each col, check if winner
   let nextValueFromCol;
   let rowWeCreateFromCols = [];
   for (let columnIdx = 0; columnIdx < board.length; columnIdx++) {
@@ -54,17 +54,26 @@ function checkWinner(board) {
     rowWeCreateFromCols = [];
   }
 
-  //   let rowWeCreateFromDiags;
-  //   for (let k = 0; k < board.length; k++) {
-  //     const element = board[k][k];
-  //   }
-  // some diag winner
-  // - some blackmagic for diag
+  // Diag, top-left to bottom-right
+  let rowWeCreateFromDiags = [];
+  for (let k = 0; k < board.length; k++) {
+    rowWeCreateFromDiags.push(board[k][k]);
+  }
+  if (rowChecker(rowWeCreateFromDiags)) return true;
+
+  // Diag, top-right to bottom-left
+  rowWeCreateFromDiags = [];
+  for (let k = board.length - 1; k >= 0; k--) {
+    rowWeCreateFromDiags.push(board[k][board.length - 1 - k]);
+  }
+  if (rowChecker(rowWeCreateFromDiags)) return true;
 
   return false;
 }
 
 function rowChecker(row) {
+  if (!row.length) throw new Error(JSON.stringify({ row }));
+
   const thingWeHopeIsSame = row[0];
   for (let i = 0; i < row.length; i++) {
     const element = row[i];
@@ -78,7 +87,7 @@ console.log(
   JSON.stringify({
     winnerForY: checkWinner(winnerForY),
     winnerForY1: checkWinner(winnerForY1),
-    winnerForY2: checkWinner(winnerForY2),
+    diagWinnerY: checkWinner(diagWinnerY),
     noWinner: checkWinner(noWinner),
   })
 );
