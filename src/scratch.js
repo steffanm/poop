@@ -1,6 +1,3 @@
-// const badrow = [1, 2, 3];
-// const goodrow = [3, 3, 3];
-
 const x = "x";
 const y = "y";
 const winnerForY = [
@@ -24,25 +21,13 @@ const noWinner = [
   [y, null, x],
 ];
 
-// column1 = [y,y,y]
-// for loop 1
-//     iteration through parent array.
-//         get value of 'current column value'
-// [
-//   [y, x, y],
-//   [y, null, y],
-//   [y, null, x],
-// ];
-
 function checkWinner(board) {
   // some row winner
-  // - for each row, check if winner
   for (let i = 0; i < board.length; i++) {
     const row = board[i];
     if (rowChecker(row)) return true;
   }
   //   // some col winner
-  //   // - for each col, check if winner
   let nextValueFromCol;
   let rowWeCreateFromCols = [];
   for (let columnIdx = 0; columnIdx < board.length; columnIdx++) {
@@ -61,11 +46,12 @@ function checkWinner(board) {
   }
   if (rowChecker(rowWeCreateFromDiags)) return true;
 
-  // Diag, top-right to bottom-left
+  // Diag, bottom-left to top-right
   rowWeCreateFromDiags = [];
   for (let k = board.length - 1; k >= 0; k--) {
     rowWeCreateFromDiags.push(board[k][board.length - 1 - k]);
   }
+
   if (rowChecker(rowWeCreateFromDiags)) return true;
 
   return false;
