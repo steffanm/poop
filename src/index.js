@@ -145,15 +145,22 @@ function calculateWinner(squares) {
 
 
 
+function rowChecker(row) {
+  const thingWeHopeIsSame = row[0];
+  // for each thing in row, if thing !== thingWeHopeIsSame return false.
+  for (let i = 0; i < row.length; i++) {
+    const element = row[i];
+    if (element !== thingWeHopeIsSame) return false;
+  }
 
-10 in a row
-
-
-
-10 in a colm
-
-
-
-10 in a diagonal
+  return true;
+}
+// 1. 10 in a row
+  // - For each row
+    // - Given a row, confirm all values are the same value 
+2. 10 in a row, in column
+  - For each column
+    - Given a column, confirm all values are the same value
+3. 10 in a diagonal
 
 
